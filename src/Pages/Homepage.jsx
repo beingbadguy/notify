@@ -12,6 +12,7 @@ const Homepage = () => {
   const [val, setVal] = useState();
   const [addTodo, setaddTodo] = useState(false);
   const [newerror, setnewerror] = useState();
+  const [log, setlog] = useState(false);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -105,7 +106,12 @@ const Homepage = () => {
           <p>Welcome Back Again!</p>
         </div>
         <div className=' relative flex items-center gap-10  '>
-          <p className=' text-white bg-black rounded p-2 cursor-pointer' onClick={logout}>
+          <p
+            className=' text-white bg-black rounded p-2 cursor-pointer'
+            onClick={() => {
+              setlog(true);
+            }}
+          >
             logout
           </p>
           {/* <p
@@ -116,6 +122,25 @@ const Homepage = () => {
           </p> */}
         </div>
       </div>
+      {log && log ? (
+        <div className=' p-2 text-white rounded-2xl'>
+          <p>Do you really want to go?</p>
+          <div className='flex justify-between mt-2 text-black'>
+            <p className='bg-red-200 rounded-xl p-2' onClick={logout}>
+              yes
+            </p>
+            <p
+              className='bg-green-200 rounded-xl p-2'
+              onClick={() => {
+                setlog(false);
+              }}
+            >
+              no
+            </p>
+          </div>
+        </div>
+      ) : null}
+
       <div
         className='text-3xl  text-center rounded-[100%] text cursor-pointer py-5'
         onClick={() => {
@@ -178,9 +203,6 @@ const Homepage = () => {
         </div>
       </div> */}
 
-      <div className='flex items-center justify-center mr-[290px] gap-2'>
-        <p className=''>Your Task</p>(<p className='font-bold text-xl'>{val && val.length}</p>)
-      </div>
       {val && val.length == 0 ? (
         <div>
           <h1 className='text-xl mt-20 text-red-600 font-bold text-center'>
@@ -188,7 +210,10 @@ const Homepage = () => {
           </h1>
         </div>
       ) : (
-        <div className='  flex flex-col p-4 gap-5 w-[100%]'>
+        <div className=' relative flex flex-col p-4 gap-5 w-[100%]'>
+          <div className='flex items-center justify-center absolute left-3 top-[-16px]  gap-2'>
+            <p className=''>Your Task</p>(<p className='font-bold text-xl'>{val && val.length}</p>)
+          </div>
           {val &&
             val.map((item, index) => (
               <div key={index} className={`bg-black text-white rounded-xl p-4 min-h-[200px]`}>

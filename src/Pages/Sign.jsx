@@ -68,8 +68,8 @@ const Sign = () => {
 
         <MdHome className='text-3xl cursor-pointer' />
       </div>
-      <div>
-        <img src='./crown.jpg' alt='' />
+      <div className='w-[100%]  flex items-center justify-center'>
+        <img src='./crown.jpg' alt='' className='md:h-[30%] text-center md:w-[30%]' />
       </div>
       <div className='mt-50'>
         <form onSubmit={handleSubmit} className='flex gap-2 mb-10 p-5  flex-col w-[100%]'>
