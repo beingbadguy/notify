@@ -36,7 +36,7 @@ const Login = () => {
         if (error) {
           setError(error);
         } else {
-          console.log(data);
+          // console.log(data);
           setToken(data);
           if (token) {
             navigate('/homepage');
