@@ -5,6 +5,7 @@ export const MasterContext = createContext();
 
 const MasterProvider = ({ children }) => {
   const [token, setToken] = useState(null);
+  const bgcolor = '#E08E45';
   useEffect(() => {
     const storedToken = sessionStorage.getItem('token');
     if (storedToken) {
@@ -21,7 +22,9 @@ const MasterProvider = ({ children }) => {
     }
   }, [token]);
 
-  return <MasterContext.Provider value={{ token, setToken }}>{children}</MasterContext.Provider>;
+  return (
+    <MasterContext.Provider value={{ bgcolor, token, setToken }}>{children}</MasterContext.Provider>
+  );
 };
 
 export default MasterProvider;
