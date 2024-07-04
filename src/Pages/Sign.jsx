@@ -6,11 +6,13 @@ import { MdKeyboardArrowLeft } from 'react-icons/md';
 import { MdHome } from 'react-icons/md';
 import { LuEye } from 'react-icons/lu';
 import { IoMdEyeOff } from 'react-icons/io';
+import { InfinitySpin } from 'react-loader-spinner';
 
 const Sign = () => {
   const { token, setToken, bgcolor } = useContext(MasterContext);
   const [newerror, setnewerror] = useState();
   const [pass, setPass] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -28,6 +30,7 @@ const Sign = () => {
     e.preventDefault();
     if (formData.name != '' && formData.email != '' && formData.password != '') {
       try {
+        setLoading(true);
         const { data, error } = await supabase.auth.signUp({
           email: formData.email,
           password: formData.password,
@@ -44,6 +47,7 @@ const Sign = () => {
         } else {
           // console.log(data);
           setToken(data);
+          setLoading(false);
         }
       } catch (error) {
         setnewerror(error.message);
@@ -122,8 +126,23 @@ const Sign = () => {
             </div>
           </div>
 
-          <button type='submit' className='bg-black rounded-xl text-white p-2'>
-            Create an account
+          <button
+            type='submit'
+            className='bg-black rounded-xl text-white p-2  flex items-center justify-center'
+          >
+            {loading ? (
+              <div className='text-center'>
+                <InfinitySpin
+                  visible={true}
+                  width='60'
+                  color='white'
+                  ariaLabel='infinity-spin-loading'
+                  className='text-center'
+                />
+              </div>
+            ) : (
+              'Create an account'
+            )}
           </button>
         </form>
       </div>

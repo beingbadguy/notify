@@ -6,9 +6,12 @@ import supabase from '@/db/supabase';
 import { CiCalendar } from 'react-icons/ci';
 import { MdDeleteOutline } from 'react-icons/md';
 import { MdOutlineTask } from 'react-icons/md';
+import { InfinitySpin } from 'react-loader-spinner';
 
 const Homepage = () => {
   const { token, setToken } = useContext(MasterContext);
+  const [loading, setLoading] = useState(false);
+
   const [val, setVal] = useState();
   const [addTodo, setaddTodo] = useState(false);
   const [newerror, setnewerror] = useState();
@@ -46,8 +49,10 @@ const Homepage = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     if (formData.title != '' && formData.description != '') {
       try {
+        setLoading(true);
         const { data, error } = await supabase
           .from('todos')
           .insert([
@@ -65,6 +70,7 @@ const Homepage = () => {
         console.log('Data inserted:', data);
         setnewerror('Task has been created successfully');
         setaddTodo(true);
+        setLoading(false);
       } catch (error) {
         setnewerror('Error inserting data:', error.message);
       }
@@ -93,7 +99,112 @@ const Homepage = () => {
     }
   }, [token, navigate]);
 
-  const colors = ['red', 'yellow', 'green', 'blue'];
+  // const colors = ['red', 'yellow', 'green', 'blue'];
+
+  const colors = [
+    '#f867a5',
+    '#8771a9',
+    '#32562d',
+    '#33f649',
+    '#4b6285',
+    '#043d82',
+    '#08fd55',
+    '#5c5d7e',
+    '#62f8bd',
+    '#9419cd',
+    '#ee92ca',
+    '#1854cf',
+    '#4c152f',
+    '#46872e',
+    '#922236',
+    '#eead00',
+    '#936e88',
+    '#9d8cf1',
+    '#b2f0fa',
+    '#cb4e6d',
+    '#9b507b',
+    '#1c400e',
+    '#d1aae3',
+    '#3e7d5f',
+    '#04cc53',
+    '#9e4ced',
+    '#0e355e',
+    '#7803b1',
+    '#435097',
+    '#e052f2',
+    '#31ddf8',
+    '#443cd9',
+    '#853b3d',
+    '#43d762',
+    '#f8b11e',
+    '#745168',
+    '#89784d',
+    '#2c6281',
+    '#84ef95',
+    '#b738b0',
+    '#77d611',
+    '#93f621',
+    '#0f31ad',
+    '#711804',
+    '#4ca849',
+    '#43ac09',
+    '#0a7981',
+    '#8a10ec',
+    '#ec91ab',
+    '#12dee0',
+    '#3c1076',
+    '#26101d',
+    '#fd22e5',
+    '#7d91ce',
+    '#a5235f',
+    '#b8ae42',
+    '#efbec8',
+    '#61c891',
+    '#86f58a',
+    '#41f0d4',
+    '#202fde',
+    '#42e1d0',
+    '#332cab',
+    '#ed7baa',
+    '#f8c777',
+    '#102007',
+    '#2f9a24',
+    '#09514d',
+    '#d492e2',
+    '#644043',
+    '#251173',
+    '#ccd945',
+    '#83e5dc',
+    '#15e431',
+    '#91cbb1',
+    '#b3fb61',
+    '#514516',
+    '#016047',
+    '#dc14ad',
+    '#c874a3',
+    '#2138d9',
+    '#594dd9',
+    '#8a196a',
+    '#8365c1',
+    '#56b37e',
+    '#c17e65',
+    '#fbd2de',
+    '#84b207',
+    '#2599c4',
+    '#31e910',
+    '#8dd466',
+    '#66a702',
+    '#2d8d05',
+    '#fd6001',
+    '#691eac',
+    '#75b995',
+    '#29fac8',
+    '#a2a764',
+    '#7cbb3b',
+    '#768e56',
+  ];
+
+  console.log(colors[0]);
   return (
     <div className='flex flex-col items-center w-[100%] select-none'>
       <div className='flex items-center justify-between p-4 w-[100%]'>
@@ -180,8 +291,23 @@ const Homepage = () => {
             placeholder='oh! Shit'
             className='border-b-2 p-2 outline-none text-4xl'
           />
-          <button type='submit' className='bg-black text-white p-2 rounded-xl'>
-            Create Task
+          <button
+            type='submit'
+            className='bg-black text-white p-2 rounded-xl flex items-center justify-center'
+          >
+            {loading ? (
+              <div className='text-center'>
+                <InfinitySpin
+                  visible={true}
+                  width='60'
+                  color='white'
+                  ariaLabel='infinity-spin-loading'
+                  className='text-center'
+                />
+              </div>
+            ) : (
+              'Create Task'
+            )}
           </button>
         </form>
       </div>
@@ -216,7 +342,11 @@ const Homepage = () => {
           </div>
           {val &&
             val.map((item, index) => (
-              <div key={index} className={`bg-black text-white rounded-xl p-4 min-h-[200px]`}>
+              <div
+                key={index}
+                // style={{ backgroundColor: colors[index] }}
+                className={` text-black text-white rounded-xl p-4 min-h-[200px]`}
+              >
                 <div className='flex items-center justify-between'>
                   <div className='flex items-center gap-2'>
                     <div>
