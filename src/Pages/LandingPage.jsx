@@ -27,7 +27,7 @@ const LandingPage = () => {
           }}
           className='bg-green-200  text-sm  p-4 cursor-pointer rounded-xl'
         >
-          Become a member
+          Sign Up
         </p>
         <p
           onClick={() => {
@@ -35,7 +35,7 @@ const LandingPage = () => {
           }}
           className='bg-purple-200  text-sm p-4 cursor-pointer rounded-xl'
         >
-          Already a member ?
+          Log In
         </p>
       </div>
     </div>
