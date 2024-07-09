@@ -20,7 +20,7 @@ const View = () => {
         throw error;
       }
       setAsset(data);
-      console.log("Record:", data);
+      // console.log("Record:", data);
     } catch (error) {
       console.error(error.message);
     }
