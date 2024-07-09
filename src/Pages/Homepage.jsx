@@ -7,6 +7,7 @@ import { CiCalendar } from "react-icons/ci";
 import { MdDeleteOutline } from "react-icons/md";
 import { MdOutlineTask } from "react-icons/md";
 import { InfinitySpin } from "react-loader-spinner";
+import { GoLinkExternal } from "react-icons/go";
 
 const Homepage = () => {
   const { token, setToken } = useContext(MasterContext);
@@ -16,6 +17,7 @@ const Homepage = () => {
   const [addTodo, setaddTodo] = useState(false);
   const [newerror, setnewerror] = useState();
   const [log, setlog] = useState(false);
+  const [del, setDel] = useState(false);
   const [formData, setFormData] = useState({
     title: "",
     description: "",
@@ -135,7 +137,7 @@ const Homepage = () => {
         </div>
         <div className=" relative flex items-center gap-10  ">
           <p
-            className=" text-white bg-black rounded p-2 cursor-pointer"
+            className=" text-white bg-black rounded p-2 cursor-pointer hover:bg-slate-700"
             onClick={() => {
               setlog(true);
             }}
@@ -145,29 +147,31 @@ const Homepage = () => {
         </div>
       </div>
       {log && log ? (
-        <div className=" p-2 text-white rounded-2xl">
-          <p>Do you really want to go?</p>
-          <div className="flex justify-between mt-2 text-black">
+        <div className="absolute font-bold top-[50%] bg-black p-5 text-white rounded-xl h-[150px] w-[320px]">
+          <p> Do you really want to logout?</p>
+          <div className="flex justify-between mt-2 text-black mt-10">
             <p
-              className="bg-black text-white cursor-pointer rounded-xl p-2"
+              className="bg-black border  text-white cursor-pointer px-4 py-2 flex items-center justify-center rounded-md"
               onClick={logout}
             >
-              yes
+              Yes
             </p>
             <p
-              className="bg-black text-white cursor-pointer rounded-xl p-2"
+              className="bg-white text-black cursor-pointer rounded-md px-4 flex items-center justify-center"
               onClick={() => {
                 setlog(false);
               }}
             >
-              no
+              No
             </p>
           </div>
         </div>
       ) : null}
 
       <div
-        className="text-3xl  text-center rounded-[100%] text cursor-pointer py-5"
+        className={` ${
+          log ? "hidden" : "block"
+        } text-3xl  text-center rounded-[100%] text cursor-pointer py-5`}
         onClick={() => {
           setaddTodo(!addTodo);
         }}
@@ -175,8 +179,8 @@ const Homepage = () => {
         <CiCirclePlus />
       </div>
       <div
-        className={`w-[80%] ${
-          addTodo ? "h-1" : "h-[320px]"
+        className={`w-[80%] ${addTodo ? "h-1" : "h-[320px]"} ${
+          log ? "hidden" : "block"
         } transition-all duration-500 overflow-hidden`}
       >
         <p className="text-red-500">{newerror}</p>
@@ -231,12 +235,20 @@ const Homepage = () => {
 
       {val && val.length == 0 ? (
         <div>
-          <h1 className="text-xl mt-20 text-black font-bold text-center">
+          <h1
+            className={` ${
+              log ? "hidden" : "block"
+            }  text-xl mt-20 text-black font-bold text-center`}
+          >
             BOOOOOOOM!!! <br /> It's time to hit some goals.
           </h1>
         </div>
       ) : (
-        <div className=" relative flex flex-col p-4 gap-5 w-[100%]">
+        <div
+          className={`${
+            log ? "hidden" : "block"
+          } relative flex flex-col p-4 gap-5 w-[100%]`}
+        >
           <div className="flex items-center justify-center absolute left-3 top-[-16px]  gap-2">
             <p className="">Your Task</p>(
             <p className="font-bold text-xl">{val && val.length}</p>)
@@ -245,7 +257,7 @@ const Homepage = () => {
             val.map((item, index) => (
               <div
                 key={index}
-                className={` text-white bg-black  rounded-xl p-4 min-h-[200px]`}
+                className={` relative text-white bg-black  rounded-xl p-4 min-h-[100px]`}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -266,7 +278,15 @@ const Homepage = () => {
                 </div>
 
                 <h1 className="font-bold text-4xl">{item.title}</h1>
-                <p className="mt-3">{item.description}</p>
+                <p className="mt-3 ">{item.description}</p>
+                <div
+                  className="float-right text-2xl cursor-pointer"
+                  onClick={() => {
+                    navigate(`/view/${item.id}`);
+                  }}
+                >
+                  <GoLinkExternal />
+                </div>
               </div>
             ))}
         </div>
