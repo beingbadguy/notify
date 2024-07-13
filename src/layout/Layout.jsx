@@ -35,8 +35,8 @@ const Layout = () => {
       <main className=' min-h-[58vh] container'>
         <Outlet />
       </main>
-      <footer className='bg-black text-white p-8 w-[100%] text-center'>
-        <h1>Made with ❤️ by Aman Kumar</h1>
+      <footer className=' text-black p-8 w-[100%] text-center'>
+        <h1>Made with ❤️ by Aman</h1>
       </footer>
     </div>
   );

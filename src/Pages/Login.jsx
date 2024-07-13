@@ -7,9 +7,12 @@ import { MdHome } from "react-icons/md";
 import { LuEye } from "react-icons/lu";
 import { IoMdEyeOff } from "react-icons/io";
 import { InfinitySpin } from "react-loader-spinner";
+import { BsInfo } from "react-icons/bs";
+import { IoCloseOutline } from "react-icons/io5";
 
 const Login = () => {
   const [pass, setPass] = useState(false);
+  const [demo, setDemo] = useState(true);
 
   const [loading, setLoading] = useState(false);
 
@@ -63,18 +66,21 @@ const Login = () => {
   }, [token, navigate]);
   return (
     <div>
-      <div className="flex items-center p-4 ">
-        <div
-          className="text-3xl cursor-pointer"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          <MdKeyboardArrowLeft />
-        </div>
+      <div className="flex items-center justify-between">
+        <div className="flex items-center p-4 ">
+          <div
+            className="text-3xl cursor-pointer"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            <MdKeyboardArrowLeft />
+          </div>
 
-        <MdHome className="text-3xl cursor-pointer" />
+          <MdHome className="text-3xl cursor-pointer" />
+        </div>
       </div>
+
       <div className="w-[100%]  flex items-center justify-center">
         <img
           src="./crown.jpg"
@@ -82,6 +88,7 @@ const Login = () => {
           className="md:h-[30%] text-center md:w-[30%]"
         />
       </div>
+
       <div className="mt-50 p-3">
         <form
           onSubmit={handleSubmit}
@@ -144,6 +151,31 @@ const Login = () => {
             )}
           </button>
         </form>
+      </div>
+      <div className="pl-6">
+        {demo ? (
+          <div className="flex gap-2">
+            <BsInfo
+              className="bg-black text-white text-xl"
+              onClick={() => {
+                setDemo(false);
+              }}
+            />
+            <p className="text-black">Demo Account</p>
+          </div>
+        ) : (
+          <div className="text-black">
+            <IoCloseOutline
+              onClick={() => {
+                setDemo(true);
+              }}
+              className="bg-black text-white text-xl"
+            />
+
+            <p>Email:demo@gmail.com</p>
+            <p>Password:demo@567</p>
+          </div>
+        )}
       </div>
     </div>
   );

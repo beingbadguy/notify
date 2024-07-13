@@ -3,11 +3,12 @@ import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
 import { CiCalendar } from "react-icons/ci";
+import html2canvas from "html2canvas";
+import { AiOutlineDownload } from "react-icons/ai";
 
 const View = () => {
   const [asset, setAsset] = useState();
   const { id } = useParams();
-  console.log(id);
   const navigate = useNavigate();
   const fetchOneData = async (id) => {
     try {
@@ -25,19 +26,40 @@ const View = () => {
       console.error(error.message);
     }
   };
+  const takeScreenshot = () => {
+    html2canvas(document.body).then((canvas) => {
+      const imgData = canvas.toDataURL("image/png");
+
+      const link = document.createElement("a");
+      link.href = imgData;
+      const date = new Date().getSeconds();
+      link.download = `Notify-${date}.png`;
+
+      link.click();
+    });
+  };
+
   useEffect(() => {
     fetchOneData(id);
   }, []);
   return (
     <div>
-      <div className="flex items-center p-4 ">
+      <div className="flex items-center justify-between w-[100%] ">
+        <div className="flex items-center p-4 ">
+          <div
+            className="text-3xl cursor-pointer"
+            onClick={() => {
+              navigate("/homepage");
+            }}
+          >
+            <MdKeyboardArrowLeft />
+          </div>
+        </div>
         <div
-          className="text-3xl cursor-pointer"
-          onClick={() => {
-            navigate("/homepage");
-          }}
+          className=" text-black p-2 mr-2 cursor-pointer text-2xl"
+          onClick={takeScreenshot}
         >
-          <MdKeyboardArrowLeft />
+          <AiOutlineDownload />
         </div>
       </div>
 
@@ -45,7 +67,7 @@ const View = () => {
         asset.map((item, index) => (
           <div
             key={index}
-            className={` relative text-black   rounded-xl px-10`}
+            className={` relative text-black   rounded-xl px-10 pb-10`}
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">

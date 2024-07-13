@@ -278,7 +278,7 @@ const Homepage = () => {
                 </div>
 
                 <h1 className="font-bold text-4xl">{item.title}</h1>
-                <p className="mt-3 ">{item.description}</p>
+                <p className="mt-3 hidden">{item.description}</p>
                 <div
                   className="float-right text-2xl cursor-pointer"
                   onClick={() => {
