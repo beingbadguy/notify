@@ -43,7 +43,7 @@ const View = () => {
     fetchOneData(id);
   }, []);
   return (
-    <div>
+    <div className="">
       <div className="flex items-center justify-between w-[100%] ">
         <div className="flex items-center p-4 ">
           <div

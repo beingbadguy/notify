@@ -122,7 +122,7 @@ const Homepage = () => {
   };
 
   return (
-    <div className="flex flex-col items-center w-[100%] select-none">
+    <div className="flex flex-col items-center w-[100%] select-none  ">
       <div className="flex items-center justify-between p-4 w-[100%]">
         <div className="flex flex-col">
           <div className="flex items-center">

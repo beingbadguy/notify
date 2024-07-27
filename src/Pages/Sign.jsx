@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import supabase from "@/db/supabase";
 import { MasterContext } from "@/Context/Context";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -67,7 +67,7 @@ const Sign = () => {
     }
   }, [navigate, token]);
   return (
-    <div>
+    <div className="  min-h-[100vh] text-black ">
       <div className={`flex items-center p-4 `}>
         <div
           className="text-3xl cursor-pointer"
@@ -90,10 +90,10 @@ const Sign = () => {
       <div className="mt-50">
         <form
           onSubmit={handleSubmit}
-          className="flex gap-2 mb-10 p-5  flex-col w-[100%]"
+          className="flex gap-2  p-5  flex-col w-[100%]"
         >
-          <p className="text-red-400">{newerror}</p>
-          <label className="text-gray-400">
+          <p className="text-red-600">{newerror}</p>
+          <label className="text-slate-500">
             Enter your name here <span className="text-red-400">*</span>
           </label>
           <input
@@ -102,9 +102,9 @@ const Sign = () => {
             value={formData.name}
             onChange={handleChange}
             placeholder="Aman Yadav"
-            className="border-b-2 outline-none border-black p-2"
+            className="  border border-black outline-green-400 rounded p-2"
           />
-          <label className="text-gray-400">
+          <label className="text-slate-500">
             Enter your email here <span className="text-red-400">*</span>
           </label>
           <input
@@ -113,9 +113,9 @@ const Sign = () => {
             value={formData.email}
             onChange={handleChange}
             placeholder="aman@example.com"
-            className="border-b-2 outline-none  border-black p-2"
+            className=" border border-black outline-green-400 rounded p-2"
           />
-          <label className="text-gray-400">
+          <label className="text-slate-500">
             Enter your password here <span className="text-red-400">*</span>
           </label>
           <div className="flex items-center ">
@@ -124,12 +124,12 @@ const Sign = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="whyWouldITellYou"
-              className="border-b-2 outline-none w-[100%]  border-black p-2"
+              placeholder="*********"
+              className="  border border-black w-[100%] outline-green-400 rounded p-2"
             />
 
             <div
-              className="ml-[-20px] text-xl cursor-pointer"
+              className="ml-[-30px] text-xl cursor-pointer"
               onClick={() => {
                 setPass(!pass);
               }}
@@ -140,7 +140,7 @@ const Sign = () => {
 
           <button
             type="submit"
-            className="bg-black rounded-xl text-white p-2  flex items-center justify-center"
+            className="bg-black rounded text-white p-2 mt-3  flex items-center justify-center"
           >
             {loading ? (
               <div className="text-center">
@@ -157,6 +157,12 @@ const Sign = () => {
             )}
           </button>
         </form>
+        <div className="mx-6 text-slate-500">
+          Already have an account ?{" "}
+          <Link to={"/login"}>
+            <span className="underline">Login</span>
+          </Link>
+        </div>
       </div>
     </div>
   );

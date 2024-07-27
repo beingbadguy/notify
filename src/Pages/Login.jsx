@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import supabase from "@/db/supabase";
 import { MasterContext } from "@/Context/Context";
 import { MdKeyboardArrowLeft } from "react-icons/md";
@@ -65,7 +65,7 @@ const Login = () => {
     }
   }, [token, navigate]);
   return (
-    <div>
+    <div className=" text-black min-h-[100vh]">
       <div className="flex items-center justify-between">
         <div className="flex items-center p-4 ">
           <div
@@ -90,14 +90,11 @@ const Login = () => {
       </div>
 
       <div className="mt-50 p-3">
-        <form
-          onSubmit={handleSubmit}
-          className="flex gap-2 mb-10 flex-col w-[100%]"
-        >
-          <p className="text-red-400 py-2">
+        <form onSubmit={handleSubmit} className="flex gap-2  flex-col w-[100%]">
+          <p className="text-red-600 py-2">
             {errormsg && errormsg ? `${errormsg}` : null}
           </p>
-          <label className="text-gray-400">
+          <label className="text-slate-500">
             Enter your email here <span className="text-red-400">*</span>{" "}
           </label>
           <input
@@ -106,9 +103,9 @@ const Login = () => {
             value={formData.email}
             onChange={handleChange}
             placeholder="aman@example.com"
-            className="border-b-2 outline-none  border-black p-2"
+            className="border border-black outline-green-400 rounded p-2"
           />
-          <label className="text-gray-400">
+          <label className="text-slate-500">
             Enter your password here <span className="text-red-400">*</span>
           </label>
 
@@ -118,12 +115,12 @@ const Login = () => {
               name="password"
               value={formData.password}
               onChange={handleChange}
-              placeholder="whyWouldITellYou"
-              className="border-b-2 outline-none w-[100%]  border-black p-2"
+              placeholder="**********"
+              className="  w-[100%] border border-black outline-green-400 rounded p-2"
             />
 
             <div
-              className="ml-[-20px] text-xl cursor-pointer"
+              className="ml-[-25px] text-xl cursor-pointer"
               onClick={() => {
                 setPass(!pass);
               }}
@@ -134,7 +131,7 @@ const Login = () => {
 
           <button
             type="submit"
-            className="bg-black rounded-xl text-white p-2  flex items-center justify-center"
+            className="bg-black rounded text-white p-2 mt-3 flex items-center justify-center"
           >
             {loading ? (
               <div className="text-center">
@@ -152,11 +149,18 @@ const Login = () => {
           </button>
         </form>
       </div>
+
+      <div className="mx-6 text-slate-500 mb-4">
+        Don't have an account ?
+        <Link to={"/signup"}>
+          <span className="underline"> Signup</span>
+        </Link>
+      </div>
       <div className="pl-6">
         {demo ? (
           <div className="flex gap-2">
             <BsInfo
-              className="bg-black text-white text-xl"
+              className="bg-black text-slate-500 text-xl"
               onClick={() => {
                 setDemo(false);
               }}
@@ -169,7 +173,7 @@ const Login = () => {
               onClick={() => {
                 setDemo(true);
               }}
-              className="bg-black text-white text-xl"
+              className="bg-black text-slate-500 text-xl"
             />
 
             <p>Email:demo@gmail.com</p>
